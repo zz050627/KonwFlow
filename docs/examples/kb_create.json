@@ -1,0 +1,5 @@
+{
+  "name": "测试库",
+  "embeddingModel": "text-embedding-ada-002",
+  "collectionName": "test-kb-2026"
+}
