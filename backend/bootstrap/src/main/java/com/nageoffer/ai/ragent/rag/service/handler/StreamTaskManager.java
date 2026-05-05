@@ -41,8 +41,8 @@ import java.util.function.Supplier;
 @Component
 public class StreamTaskManager {
 
-    private static final String CANCEL_TOPIC = "ragent:stream:cancel";
-    private static final String CANCEL_KEY_PREFIX = "ragent:stream:cancel:";
+    private static final String CANCEL_TOPIC = "knowflow:stream:cancel";
+    private static final String CANCEL_KEY_PREFIX = "knowflow:stream:cancel:";
     private static final Duration CANCEL_TTL = Duration.ofMinutes(30);
 
     private final Cache<String, StreamTaskInfo> tasks = CacheBuilder.newBuilder()

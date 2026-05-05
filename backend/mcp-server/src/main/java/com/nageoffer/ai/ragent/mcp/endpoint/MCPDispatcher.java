@@ -69,7 +69,7 @@ public class MCPDispatcher {
         result.put("capabilities", capabilities);
 
         Map<String, Object> serverInfo = new LinkedHashMap<>();
-        serverInfo.put("name", "ragent-mcp-server");
+        serverInfo.put("name", "knowflow-mcp-server");
         serverInfo.put("version", "0.0.1");
         result.put("serverInfo", serverInfo);
 

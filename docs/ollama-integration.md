@@ -2,7 +2,7 @@
 
 ## 概述
 
-Ragent 已支持本地 Ollama 模型调用，实现完全离线的 RAG 对话能力。
+KnowFlow 已支持本地 Ollama 模型调用，实现完全离线的 RAG 对话能力。
 
 ## 前置要求
 
@@ -32,7 +32,7 @@ Ragent 已支持本地 Ollama 模型调用，实现完全离线的 RAG 对话能
 
 ### 环境变量配置（推荐）
 
-在 `ragent-secrets.yaml` 或环境变量中配置：
+在 `knowflow-secrets.yaml` 或环境变量中配置：
 
 ```yaml
 # Ollama 服务地址（默认 http://localhost:11434）
@@ -267,7 +267,7 @@ Vector dimension mismatch: expected 1536, got 896
 4. **启动服务**
    ```bash
    mvn clean package
-   java -jar bootstrap/target/ragent-0.0.1-SNAPSHOT.jar
+   java -jar bootstrap/target/knowflow-0.0.1-SNAPSHOT.jar
    ```
 
 ## 参考资料

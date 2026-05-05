@@ -39,14 +39,14 @@
 
 ### 1. 数据库升级
 ```bash
-psql -h 127.0.0.1 -U postgres -d ragent -f bootstrap/src/main/resources/database/upgrade_v1.2_to_v1.3.sql
-psql -h 127.0.0.1 -U postgres -d ragent -f bootstrap/src/main/resources/database/upgrade_v1.3_to_v1.4.sql
+psql -h 127.0.0.1 -U postgres -d knowflow -f bootstrap/src/main/resources/database/upgrade_v1.2_to_v1.3.sql
+psql -h 127.0.0.1 -U postgres -d knowflow -f bootstrap/src/main/resources/database/upgrade_v1.3_to_v1.4.sql
 ```
 
 ### 2. 重启应用
 ```bash
 mvn clean package -DskipTests
-java -jar bootstrap/target/ragent-0.0.1-SNAPSHOT.jar
+java -jar bootstrap/target/knowflow-0.0.1-SNAPSHOT.jar
 ```
 
 ## 📚 详细文档

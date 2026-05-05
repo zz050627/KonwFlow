@@ -32,13 +32,13 @@
 #### 实现文件
 - `CitationService.java` - 溯源服务
 - `AnswerWithCitation.java` - 带引用的回答DTO
-- API: `GET /api/ragent/rag/citation/{chunkId}`
+- API: `GET /api/knowflow/rag/citation/{chunkId}`
 
 ## API使用示例
 
 ### 查看引用来源
 ```bash
-curl http://localhost:9090/api/ragent/rag/citation/chunk_123456
+curl http://localhost:9090/api/knowflow/rag/citation/chunk_123456
 
 # 返回
 {
@@ -67,7 +67,7 @@ UserProfile profile = memory.getLongTerm();
 ## 数据库升级
 
 ```bash
-psql -h 127.0.0.1 -U postgres -d ragent -f bootstrap/src/main/resources/database/upgrade_v1.3_to_v1.4.sql
+psql -h 127.0.0.1 -U postgres -d knowflow -f bootstrap/src/main/resources/database/upgrade_v1.3_to_v1.4.sql
 ```
 
 ### 3. 意图学习机制 ✅
@@ -80,7 +80,7 @@ psql -h 127.0.0.1 -U postgres -d ragent -f bootstrap/src/main/resources/database
 #### 实现文件
 - `IntentLearningService.java` - 学习服务
 - `t_intent_feedback` - 反馈表
-- API: `POST /api/ragent/rag/intent/feedback`
+- API: `POST /api/knowflow/rag/intent/feedback`
 
 ### 4. 负反馈学习 ✅
 
@@ -91,25 +91,25 @@ psql -h 127.0.0.1 -U postgres -d ragent -f bootstrap/src/main/resources/database
 
 #### 实现文件
 - `NegativeFeedbackService.java` - 负反馈服务
-- API: `POST /api/ragent/rag/feedback/negative`
+- API: `POST /api/knowflow/rag/feedback/negative`
 
 ## API使用示例
 
 ### 提交意图反馈
 ```bash
-curl -X POST "http://localhost:9090/api/ragent/rag/intent/feedback?query=xxx&predictedIntent=A&actualIntent=B&confidence=0.6"
+curl -X POST "http://localhost:9090/api/knowflow/rag/intent/feedback?query=xxx&predictedIntent=A&actualIntent=B&confidence=0.6"
 ```
 
 ### 标记无关结果
 ```bash
-curl -X POST "http://localhost:9090/api/ragent/rag/feedback/negative?chunkId=xxx&query=yyy"
+curl -X POST "http://localhost:9090/api/knowflow/rag/feedback/negative?chunkId=xxx&query=yyy"
 ```
 
 ## 数据库升级
 
 ```bash
-psql -h 127.0.0.1 -U postgres -d ragent -f bootstrap/src/main/resources/database/upgrade_v1.3_to_v1.4.sql
-psql -h 127.0.0.1 -U postgres -d ragent -f bootstrap/src/main/resources/database/upgrade_v1.4_to_v1.5.sql
+psql -h 127.0.0.1 -U postgres -d knowflow -f bootstrap/src/main/resources/database/upgrade_v1.3_to_v1.4.sql
+psql -h 127.0.0.1 -U postgres -d knowflow -f bootstrap/src/main/resources/database/upgrade_v1.4_to_v1.5.sql
 ```
 
 ## 完整功能清单

@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Ragent 功能诊断脚本
+# KnowFlow 功能诊断脚本
 # 用于快速定位 B000001 系统错误
 
-BASE_URL="http://localhost:9090/api/ragent"
+BASE_URL="http://localhost:9090/api/knowflow"
 
 echo "=========================================="
-echo "Ragent 功能诊断"
+echo "KnowFlow 功能诊断"
 echo "=========================================="
 
 # 1. 测试登录

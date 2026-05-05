@@ -3,7 +3,7 @@
 ## 已解决的问题
 
 ### 1. 项目结构重组
-**问题**: IntelliJ IDEA无法找到主类 `com.nageoffer.ai.ragent.RagentApplication`
+**问题**: IntelliJ IDEA无法找到主类 `com.nageoffer.ai.knowflow.KnowFlowApplication`
 
 **原因**: 项目结构从根目录移至 `backend/` 目录，IDEA的Maven配置未更新
 
@@ -23,7 +23,7 @@
 
 ## 当前运行状态
 
-✅ **后端服务**: http://localhost:9090/api/ragent (进程ID: 28512)
+✅ **后端服务**: http://localhost:9090/api/knowflow (进程ID: 28512)
 ✅ **前端服务**: http://localhost:5173
 ✅ **数据库服务**: 
   - PostgreSQL: localhost:5432
@@ -46,14 +46,14 @@
 ### 方法2: 使用API测试
 ```bash
 # 1. 登录获取token
-TOKEN=$(curl -s http://localhost:9090/api/ragent/auth/login \
+TOKEN=$(curl -s http://localhost:9090/api/knowflow/auth/login \
   -X POST \
   -H "Content-Type: application/json" \
   -d '{"username":"admin","password":"admin"}' \
   | grep -o '"token":"[^"]*"' | cut -d'"' -f4)
 
 # 2. 创建知识库
-curl -X POST http://localhost:9090/api/ragent/auth/login \
+curl -X POST http://localhost:9090/api/knowflow/auth/login \
   -H "Content-Type: application/json; charset=UTF-8" \
   -H "satoken: $TOKEN" \
   --data-raw '{
@@ -80,7 +80,7 @@ curl -X POST http://localhost:9090/api/ragent/auth/login \
 
 **"系统执行出错"**
 - 检查RustFS服务状态：`docker ps | grep rustfs`
-- 查看后端日志：`tail -f /tmp/ragent.log`
+- 查看后端日志：`tail -f /tmp/knowflow.log`
 - 确认RustFS凭证配置正确
 
 **"Collection名称不合法"**
@@ -92,7 +92,7 @@ curl -X POST http://localhost:9090/api/ragent/auth/login \
 ### 启动后端
 ```bash
 cd backend
-java -jar bootstrap/target/bootstrap-0.0.1-SNAPSHOT.jar > /tmp/ragent.log 2>&1 &
+java -jar bootstrap/target/bootstrap-0.0.1-SNAPSHOT.jar > /tmp/knowflow.log 2>&1 &
 ```
 
 ### 停止后端
@@ -113,12 +113,12 @@ npm run dev
 ### 查看日志
 ```bash
 # 后端日志
-tail -f /tmp/ragent.log
+tail -f /tmp/knowflow.log
 
 # Docker服务日志
-docker logs ragent-postgres
-docker logs ragent-redis
-docker logs ragent-rustfs
+docker logs knowflow-postgres
+docker logs knowflow-redis
+docker logs knowflow-rustfs
 ```
 
 ## 下一步

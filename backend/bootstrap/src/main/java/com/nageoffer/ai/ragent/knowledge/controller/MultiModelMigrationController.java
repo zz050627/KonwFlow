@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/ragent/knowledge/migration")
+@RequestMapping("/api/knowflow/knowledge/migration")
 @RequiredArgsConstructor
 public class MultiModelMigrationController {
 

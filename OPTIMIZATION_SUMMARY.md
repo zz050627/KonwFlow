@@ -1,4 +1,4 @@
-# Ragent 关键词检索功能优化总结
+# KnowFlow 关键词检索功能优化总结
 
 **完成时间**: 2026-04-07  
 **优化范围**: 后端关键词提取与混合检索功能  
@@ -180,7 +180,7 @@ ai:
 ### 数据库升级
 执行升级脚本：
 ```bash
-psql -U postgres -d ragent -f resources/database/upgrade_v1.1_to_v1.2.sql
+psql -U postgres -d knowflow -f resources/database/upgrade_v1.1_to_v1.2.sql
 ```
 
 **升级内容**:
@@ -212,30 +212,30 @@ ollama serve
 ollama pull qwen2.5:0.5b
 ```
 
-### 2. 启动 Ragent 应用
+### 2. 启动 KnowFlow 应用
 ```bash
 # 编译
 mvn clean package -DskipTests
 
 # 运行
-java -jar bootstrap/target/ragent-0.0.1-SNAPSHOT.jar
+java -jar bootstrap/target/knowflow-0.0.1-SNAPSHOT.jar
 ```
 
 ### 3. 上传文档测试
 ```bash
 # 上传文档（会自动提取关键词）
-curl -X POST http://localhost:9090/api/ragent/knowledge-base/{kb-id}/docs/upload \
+curl -X POST http://localhost:9090/api/knowflow/knowledge-base/{kb-id}/docs/upload \
   -F "file=@document.pdf" \
   -F "sourceType=FILE"
 
 # 开始分块（包含关键词提取）
-curl -X POST http://localhost:9090/api/ragent/knowledge-base/docs/{doc-id}/chunk
+curl -X POST http://localhost:9090/api/knowflow/knowledge-base/docs/{doc-id}/chunk
 ```
 
 ### 4. 测试关键词检索
 ```bash
 # RAG 对话（会自动使用混合检索）
-curl -X POST http://localhost:9090/api/ragent/rag/v3/chat \
+curl -X POST http://localhost:9090/api/knowflow/rag/v3/chat \
   -H "Content-Type: application/json" \
   -d '{
     "conversationId": "test-conv-001",

@@ -1,15 +1,15 @@
-# Ragent 关键词检索功能测试指南
+# KnowFlow 关键词检索功能测试指南
 
 ## 一、应用启动验证
 
 ### ✅ 启动成功标志
 看到以下日志说明应用已正常启动：
 ```
-WARN ... GlobalExceptionHandler : [GET] http://localhost:9090/api/ragent/ [auth] not-login: 未能读取到有效 token
+WARN ... GlobalExceptionHandler : [GET] http://localhost:9090/api/knowflow/ [auth] not-login: 未能读取到有效 token
 ```
 
 这是**正常的认证警告**，说明：
-- ✅ 应用已启动在 `http://localhost:9090/api/ragent`
+- ✅ 应用已启动在 `http://localhost:9090/api/knowflow`
 - ✅ 认证拦截器正常工作
 - ⚠️ 需要登录才能访问 API
 
@@ -28,7 +28,7 @@ curl http://localhost:11434/api/tags
 ### 2. 检查数据库
 ```bash
 # 连接 PostgreSQL
-psql -h 127.0.0.1 -U postgres -d ragent
+psql -h 127.0.0.1 -U postgres -d knowflow
 
 # 检查 keywords 字段是否存在
 \d t_knowledge_chunk
@@ -48,7 +48,7 @@ curl http://localhost:19530/healthz
 ## 三、用户登录
 
 ### 方法 1：使用前端登录
-1. 打开浏览器访问：`http://localhost:9090/api/ragent`
+1. 打开浏览器访问：`http://localhost:9090/api/knowflow`
 2. 使用默认账号登录（查看 PostgreSQL 初始化数据中的用户）
 3. 登录后浏览器会保存 token
 
@@ -57,13 +57,13 @@ curl http://localhost:19530/healthz
 #### 2.1 查看初始用户
 ```bash
 # 连接数据库查看用户
-psql -h 127.0.0.1 -U postgres -d ragent -c "SELECT username, password FROM t_user LIMIT 5;"
+psql -h 127.0.0.1 -U postgres -d knowflow -c "SELECT username, password FROM t_user LIMIT 5;"
 ```
 
 #### 2.2 登录获取 token
 ```bash
 # 假设有用户 admin/admin123
-curl -X POST http://localhost:9090/api/ragent/user/login \
+curl -X POST http://localhost:9090/api/knowflow/user/login \
   -H "Content-Type: application/json" \
   -d '{
     "username": "admin",
@@ -85,7 +85,7 @@ curl -X POST http://localhost:9090/api/ragent/user/login \
 #### 2.3 保存 token 到环境变量
 ```bash
 # 提取 token（Linux/Mac）
-export TOKEN=$(curl -s -X POST http://localhost:9090/api/ragent/user/login \
+export TOKEN=$(curl -s -X POST http://localhost:9090/api/knowflow/user/login \
   -H "Content-Type: application/json" \
   -d '{"username":"admin","password":"admin123"}' \
   | jq -r '.data.token')
@@ -93,7 +93,7 @@ export TOKEN=$(curl -s -X POST http://localhost:9090/api/ragent/user/login \
 echo $TOKEN
 
 # Windows PowerShell
-$response = Invoke-RestMethod -Uri "http://localhost:9090/api/ragent/user/login" `
+$response = Invoke-RestMethod -Uri "http://localhost:9090/api/knowflow/user/login" `
   -Method POST -ContentType "application/json" `
   -Body '{"username":"admin","password":"admin123"}'
 $TOKEN = $response.data.token
@@ -107,7 +107,7 @@ echo $TOKEN
 ### 测试 1：创建知识库
 
 ```bash
-curl -X POST http://localhost:9090/api/ragent/knowledge-base \
+curl -X POST http://localhost:9090/api/knowflow/knowledge-base \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -147,7 +147,7 @@ Redis 性能优化：
 EOF
 
 # 上传文档
-curl -X POST "http://localhost:9090/api/ragent/knowledge-base/$KB_ID/docs/upload" \
+curl -X POST "http://localhost:9090/api/knowflow/knowledge-base/$KB_ID/docs/upload" \
   -H "Authorization: Bearer $TOKEN" \
   -F "file=@test_doc.txt" \
   -F "sourceType=FILE" \
@@ -162,14 +162,14 @@ export DOC_ID="返回的docId"
 
 ```bash
 # 开始分块处理
-curl -X POST "http://localhost:9090/api/ragent/knowledge-base/docs/$DOC_ID/chunk" \
+curl -X POST "http://localhost:9090/api/knowflow/knowledge-base/docs/$DOC_ID/chunk" \
   -H "Authorization: Bearer $TOKEN"
 
 # 等待 10-30 秒让分块和关键词提取完成
 sleep 15
 
 # 查看分块结果
-curl -X GET "http://localhost:9090/api/ragent/knowledge-base/docs/$DOC_ID/chunks?current=1&size=10" \
+curl -X GET "http://localhost:9090/api/knowflow/knowledge-base/docs/$DOC_ID/chunks?current=1&size=10" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -177,7 +177,7 @@ curl -X GET "http://localhost:9090/api/ragent/knowledge-base/docs/$DOC_ID/chunks
 
 ```bash
 # 查看数据库中的分块数据
-psql -h 127.0.0.1 -U postgres -d ragent -c "
+psql -h 127.0.0.1 -U postgres -d knowflow -c "
 SELECT
   chunk_index,
   LEFT(content, 50) as content_preview,
@@ -199,7 +199,7 @@ ORDER BY chunk_index;
 
 ```bash
 # 创建会话
-curl -X POST http://localhost:9090/api/ragent/rag/conversation \
+curl -X POST http://localhost:9090/api/knowflow/rag/conversation \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -210,7 +210,7 @@ curl -X POST http://localhost:9090/api/ragent/rag/conversation \
 export CONV_ID="返回的conversationId"
 
 # 测试关键词检索（使用 SSE 流式输出）
-curl -N -X POST http://localhost:9090/api/ragent/rag/v3/chat \
+curl -N -X POST http://localhost:9090/api/knowflow/rag/v3/chat \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -240,7 +240,7 @@ curl -N -X POST http://localhost:9090/api/ragent/rag/v3/chat \
 ### 测试场景 1：纯关键词匹配
 ```bash
 # 查询包含特定关键词的内容
-curl -N -X POST http://localhost:9090/api/ragent/rag/v3/chat \
+curl -N -X POST http://localhost:9090/api/knowflow/rag/v3/chat \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -256,7 +256,7 @@ curl -N -X POST http://localhost:9090/api/ragent/rag/v3/chat \
 
 ### 测试场景 2：语义相似但关键词不同
 ```bash
-curl -N -X POST http://localhost:9090/api/ragent/rag/v3/chat \
+curl -N -X POST http://localhost:9090/api/knowflow/rag/v3/chat \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -272,7 +272,7 @@ curl -N -X POST http://localhost:9090/api/ragent/rag/v3/chat \
 
 ### 测试场景 3：多关键词组合
 ```bash
-curl -N -X POST http://localhost:9090/api/ragent/rag/v3/chat \
+curl -N -X POST http://localhost:9090/api/knowflow/rag/v3/chat \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -300,7 +300,7 @@ curl -N -X POST http://localhost:9090/api/ragent/rag/v3/chat \
 # - 关键词提取耗时（在 chunkDuration 之后）
 
 # 查看分块日志
-curl -X GET "http://localhost:9090/api/ragent/knowledge-base/docs/$DOC_ID/chunk-logs?current=1&size=10" \
+curl -X GET "http://localhost:9090/api/knowflow/knowledge-base/docs/$DOC_ID/chunk-logs?current=1&size=10" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -309,7 +309,7 @@ curl -X GET "http://localhost:9090/api/ragent/knowledge-base/docs/$DOC_ID/chunk-
 # 多次查询，观察响应时间
 for i in {1..5}; do
   echo "=== 第 $i 次查询 ==="
-  time curl -s -X POST http://localhost:9090/api/ragent/rag/v3/chat \
+  time curl -s -X POST http://localhost:9090/api/knowflow/rag/v3/chat \
     -H "Authorization: Bearer $TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
@@ -339,7 +339,7 @@ curl http://localhost:11434/api/tags
 grep -A 5 "ai.keyword" bootstrap/src/main/resources/application.yaml
 
 # 3. 查看应用日志
-grep "关键词提取" logs/ragent.log
+grep "关键词提取" logs/knowflow.log
 
 # 4. 手动测试关键词提取
 curl -X POST http://localhost:11434/api/chat \
@@ -365,7 +365,7 @@ curl -X POST http://localhost:11434/api/chat \
 # （需要 Milvus 客户端或管理界面）
 
 # 2. 检查数据库中是否有分块数据
-psql -h 127.0.0.1 -U postgres -d ragent -c "
+psql -h 127.0.0.1 -U postgres -d knowflow -c "
 SELECT COUNT(*) as total,
        COUNT(content_hash) as with_content_hash,
        COUNT(*) - COUNT(content_hash) as without_content_hash
@@ -373,7 +373,7 @@ FROM t_knowledge_chunk;
 "
 
 # 3. 查看检索日志
-grep "KeywordMilvusSearchChannel" logs/ragent.log
+grep "KeywordMilvusSearchChannel" logs/knowflow.log
 ```
 
 ### 问题 3：编译错误
@@ -444,7 +444,7 @@ LIMIT 10;
 #!/bin/bash
 
 # 配置
-BASE_URL="http://localhost:9090/api/ragent"
+BASE_URL="http://localhost:9090/api/knowflow"
 USERNAME="admin"
 PASSWORD="admin123"
 

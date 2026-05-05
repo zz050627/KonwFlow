@@ -1,4 +1,4 @@
-# Ragent 优化实施总结 - 阶段2完成
+# KnowFlow 优化实施总结 - 阶段2完成
 
 ## 已完成功能（阶段2 - 优先级2）
 
@@ -222,7 +222,7 @@ SELECT * FROM t_knowledge_chunk LIMIT 1;
 ### 3. 功能测试
 ```bash
 # 1. 启动服务
-java -jar bootstrap/target/ragent-0.0.1-SNAPSHOT.jar
+java -jar bootstrap/target/knowflow-0.0.1-SNAPSHOT.jar
 
 # 2. 上传文档并提取关键词
 # 3. 执行查询，观察日志

@@ -1,4 +1,4 @@
-# Ragent 优化进度报告
+# KnowFlow 优化进度报告
 
 ## 已完成（优先级1 - 后端部分）
 
@@ -129,12 +129,12 @@ ai:
 **数据库迁移：**
 ```bash
 # 执行升级脚本
-psql -U postgres -d ragent -f resources/database/upgrade_v1.1_to_v1.2.sql
+psql -U postgres -d knowflow -f resources/database/upgrade_v1.1_to_v1.2.sql
 ```
 
 ## 验证步骤
 
 1. 编译项目：`mvn clean package`
-2. 启动后端：`java -jar bootstrap/target/ragent-0.0.1-SNAPSHOT.jar`
+2. 启动后端：`java -jar bootstrap/target/knowflow-0.0.1-SNAPSHOT.jar`
 3. 测试关键词提取（需要 Ollama 服务运行）
 4. 验证数据库表创建成功

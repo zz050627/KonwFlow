@@ -25,8 +25,8 @@
 
 ### 1. 数据库升级
 ```bash
-psql -h 127.0.0.1 -U postgres -d ragent -f backend/resources/database/upgrade_v1.0_to_v1.1.sql
-psql -h 127.0.0.1 -U postgres -d ragent -f backend/resources/database/upgrade_v1.1_to_v1.2.sql
+psql -h 127.0.0.1 -U postgres -d knowflow -f backend/resources/database/upgrade_v1.0_to_v1.1.sql
+psql -h 127.0.0.1 -U postgres -d knowflow -f backend/resources/database/upgrade_v1.1_to_v1.2.sql
 ```
 
 ### 2. 编译打包
@@ -36,7 +36,7 @@ mvn clean package -DskipTests
 
 ### 3. 启动应用
 ```bash
-java -jar bootstrap/target/ragent-0.0.1-SNAPSHOT.jar
+java -jar bootstrap/target/knowflow-0.0.1-SNAPSHOT.jar
 ```
 
 ## 📊 性能预期
@@ -48,6 +48,6 @@ java -jar bootstrap/target/ragent-0.0.1-SNAPSHOT.jar
 ## 🎯 下一步
 
 应用启动后，可测试以下API：
-- 统计：`GET /api/ragent/knowledge/stats/{kbId}`
-- 引用：`GET /api/ragent/rag/citation/{chunkId}`
-- 反馈：`POST /api/ragent/rag/feedback/negative`
+- 统计：`GET /api/knowflow/knowledge/stats/{kbId}`
+- 引用：`GET /api/knowflow/rag/citation/{chunkId}`
+- 反馈：`POST /api/knowflow/rag/feedback/negative`

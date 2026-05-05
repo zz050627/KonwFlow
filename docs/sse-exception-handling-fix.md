@@ -132,7 +132,7 @@ private void handleSseError(SseEmitter emitter, Exception e) {
 
 **请求：**
 ```bash
-curl -N http://localhost:9090/api/ragent/rag/v3/chat?question=你好
+curl -N http://localhost:9090/api/knowflow/rag/v3/chat?question=你好
 ```
 
 **响应（SSE 格式）：**
@@ -154,7 +154,7 @@ data: [DONE]
 
 **场景 1：参数验证失败**
 ```bash
-curl -N http://localhost:9090/api/ragent/rag/v3/chat
+curl -N http://localhost:9090/api/knowflow/rag/v3/chat
 ```
 
 **响应：**
@@ -165,7 +165,7 @@ data: {"error":"Required request parameter 'question' is not present"}
 
 **场景 2：服务内部错误**
 ```bash
-curl -N http://localhost:9090/api/ragent/rag/v3/chat?question=测试
+curl -N http://localhost:9090/api/knowflow/rag/v3/chat?question=测试
 ```
 
 **响应：**
@@ -226,7 +226,7 @@ public Object defaultErrorHandler(HttpServletRequest request, Throwable throwabl
 ### JavaScript (EventSource)
 
 ```javascript
-const eventSource = new EventSource('/api/ragent/rag/v3/chat?question=你好');
+const eventSource = new EventSource('/api/knowflow/rag/v3/chat?question=你好');
 
 eventSource.addEventListener('message', (e) => {
     const data = JSON.parse(e.data);
@@ -257,7 +257,7 @@ import requests
 import json
 
 response = requests.get(
-    'http://localhost:9090/api/ragent/rag/v3/chat',
+    'http://localhost:9090/api/knowflow/rag/v3/chat',
     params={'question': '你好'},
     stream=True
 )
@@ -285,7 +285,7 @@ for line in response.iter_lines():
 ### 1. 正常对话测试
 
 ```bash
-curl -N "http://localhost:9090/api/ragent/rag/v3/chat?question=你好"
+curl -N "http://localhost:9090/api/knowflow/rag/v3/chat?question=你好"
 ```
 
 **预期：** 收到完整的 SSE 流式响应
@@ -293,7 +293,7 @@ curl -N "http://localhost:9090/api/ragent/rag/v3/chat?question=你好"
 ### 2. 缺少参数测试
 
 ```bash
-curl -N "http://localhost:9090/api/ragent/rag/v3/chat"
+curl -N "http://localhost:9090/api/knowflow/rag/v3/chat"
 ```
 
 **预期：** 收到 `event: error` 事件，而不是 JSON 对象
@@ -301,7 +301,7 @@ curl -N "http://localhost:9090/api/ragent/rag/v3/chat"
 ### 3. 无效模型测试
 
 ```bash
-curl -N "http://localhost:9090/api/ragent/rag/v3/chat?question=你好&modelId=invalid-model"
+curl -N "http://localhost:9090/api/knowflow/rag/v3/chat?question=你好&modelId=invalid-model"
 ```
 
 **预期：** 收到 `event: error` 事件，包含模型不存在的错误信息
@@ -311,7 +311,7 @@ curl -N "http://localhost:9090/api/ragent/rag/v3/chat?question=你好&modelId=in
 修改配置文件中的 API Key 为无效值，然后：
 
 ```bash
-curl -N "http://localhost:9090/api/ragent/rag/v3/chat?question=你好"
+curl -N "http://localhost:9090/api/knowflow/rag/v3/chat?question=你好"
 ```
 
 **预期：** 收到 `event: error` 事件，包含认证失败的错误信息

@@ -58,7 +58,7 @@ public class HttpMCPClient implements MCPClient {
         JsonObject params = new JsonObject();
         params.addProperty("protocolVersion", "2026-02-28");
         JsonObject clientInfo = new JsonObject();
-        clientInfo.addProperty("name", "ragent-bootstrap");
+        clientInfo.addProperty("name", "knowflow-bootstrap");
         clientInfo.addProperty("version", "1.0.0");
         params.add("clientInfo", clientInfo);
 

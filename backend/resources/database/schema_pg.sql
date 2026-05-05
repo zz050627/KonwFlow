@@ -1,4 +1,4 @@
--- PostgreSQL Schema for Ragent
+-- PostgreSQL Schema for KnowFlow
 
 -- Enable pgvector extension
 CREATE EXTENSION IF NOT EXISTS vector;

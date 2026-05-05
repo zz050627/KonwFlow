@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
-$backendPort = if ($env:RAGENT_SERVER_PORT) { [int]$env:RAGENT_SERVER_PORT } else { 9090 }
-$frontendPort = if ($env:RAGENT_FRONTEND_PORT) { [int]$env:RAGENT_FRONTEND_PORT } else { 5173 }
+$backendPort = if ($env:KNOWFLOW_SERVER_PORT) { [int]$env:KNOWFLOW_SERVER_PORT } else { 9090 }
+$frontendPort = if ($env:KNOWFLOW_FRONTEND_PORT) { [int]$env:KNOWFLOW_FRONTEND_PORT } else { 5173 }
 
 function Get-ListeningPids([int]$port) {
     $result = @()

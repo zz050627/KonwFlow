@@ -51,8 +51,8 @@ node_modules/
 *.log
 
 ### Local Secrets ###
-ragent-secrets.yaml
-ragent-secrets.yml
+knowflow-secrets.yaml
+knowflow-secrets.yml
 .env
 
 ### Docker ###

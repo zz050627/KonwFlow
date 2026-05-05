@@ -17,23 +17,23 @@
 
 ### 数据库升级
 ```bash
-psql -h 127.0.0.1 -U postgres -d ragent -f bootstrap/src/main/resources/database/upgrade_v1.2_to_v1.3.sql
+psql -h 127.0.0.1 -U postgres -d knowflow -f bootstrap/src/main/resources/database/upgrade_v1.2_to_v1.3.sql
 ```
 
 ### API示例
 ```bash
 # 统计
-GET /api/ragent/knowledge/stats/{kbId}
+GET /api/knowflow/knowledge/stats/{kbId}
 
 # 导出
-GET /api/ragent/knowledge/export/{kbId}
+GET /api/knowflow/knowledge/export/{kbId}
 
 # 创建快照
-POST /api/ragent/knowledge/version/{kbId}/snapshot?versionTag=v1.0
+POST /api/knowflow/knowledge/version/{kbId}/snapshot?versionTag=v1.0
 
 # 模型迁移
-POST /api/ragent/knowledge/migration/{kbId}/start?newModelId=xxx
-GET  /api/ragent/knowledge/migration/{kbId}/status
+POST /api/knowflow/knowledge/migration/{kbId}/start?newModelId=xxx
+GET  /api/knowflow/knowledge/migration/{kbId}/status
 ```
 
 ## 性能提升

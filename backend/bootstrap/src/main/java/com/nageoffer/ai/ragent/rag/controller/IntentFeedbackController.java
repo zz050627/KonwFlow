@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/ragent/rag/intent")
+@RequestMapping("/api/knowflow/rag/intent")
 @RequiredArgsConstructor
 public class IntentFeedbackController {
 

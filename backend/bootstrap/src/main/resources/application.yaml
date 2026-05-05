@@ -1,8 +1,8 @@
 # ==================== Server Configuration ====================
 server:
-  port: ${RAGENT_SERVER_PORT:${SERVER_PORT:9090}}
+  port: ${KNOWFLOW_SERVER_PORT:${SERVER_PORT:9090}}
   servlet:
-    context-path: /api/ragent
+    context-path: /api/knowflow
   tomcat:
     threads:
       max: 16
@@ -11,11 +11,11 @@ server:
 # ==================== Spring Framework ====================
 spring:
   application:
-    name: ragent
+    name: knowflow
   profiles:
     active: dev
   config:
-    import: optional:file:./ragent-secrets.yaml
+    import: optional:file:./knowflow-secrets.yaml
   servlet:
     multipart:
       max-file-size: 100MB
@@ -25,14 +25,14 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     username: postgres
     password: postgres
-    url: jdbc:postgresql://127.0.0.1:5432/ragent?client_encoding=UTF8
+    url: jdbc:postgresql://127.0.0.1:5432/knowflow?client_encoding=UTF8
     hikari:
       connection-timeout: 5000
       idle-timeout: 600000
       max-lifetime: 1800000
       maximum-pool-size: 5
       minimum-idle: 1
-      pool-name: RagentHikariPool
+      pool-name: KnowflowHikariPool
   data:
     redis:
       host: 127.0.0.1
@@ -48,7 +48,7 @@ rustfs:
 rocketmq:
   name-server: 127.0.0.1:9876
   producer:
-    group: ragent-producer_pg
+    group: knowflow-producer_pg
     send-message-timeout: 2000
   consumer:
     consume-thread-min: 2

@@ -4,8 +4,8 @@ $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $projectRoot = Split-Path -Parent $scriptDir
 Set-Location $projectRoot
 
-$backendPort = if ($env:RAGENT_SERVER_PORT) { [int]$env:RAGENT_SERVER_PORT } else { 9090 }
-$frontendPort = if ($env:RAGENT_FRONTEND_PORT) { [int]$env:RAGENT_FRONTEND_PORT } else { 5173 }
+$backendPort = if ($env:KNOWFLOW_SERVER_PORT) { [int]$env:KNOWFLOW_SERVER_PORT } else { 9090 }
+$frontendPort = if ($env:KNOWFLOW_FRONTEND_PORT) { [int]$env:KNOWFLOW_FRONTEND_PORT } else { 5173 }
 
 $backendJar = Join-Path $projectRoot "backend\bootstrap\target\bootstrap-0.0.1-SNAPSHOT.jar"
 $frontendDir = Join-Path $projectRoot "frontend"
@@ -15,7 +15,7 @@ $logErr = Join-Path $tmpDir "backend-run.err.log"
 $frontendLogOut = Join-Path $tmpDir "frontend-run.log"
 $frontendLogErr = Join-Path $tmpDir "frontend-run.err.log"
 
-Write-Host "Starting RAGent..." -ForegroundColor Cyan
+Write-Host "Starting KnowFlow..." -ForegroundColor Cyan
 
 if (!(Test-Path $tmpDir)) {
     New-Item -ItemType Directory -Path $tmpDir | Out-Null
@@ -118,7 +118,7 @@ for ($i = 0; $i -lt 60; $i++) {
         exit 1
     }
     if (Test-NetConnection localhost -Port $backendPort -InformationLevel Quiet -WarningAction SilentlyContinue) {
-        Write-Host "Backend ready: http://localhost:$backendPort/api/ragent" -ForegroundColor Green
+        Write-Host "Backend ready: http://localhost:$backendPort/api/knowflow" -ForegroundColor Green
         $backendReady = $true
         break
     }

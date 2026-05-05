@@ -1,6 +1,6 @@
-# RAGent Frontend
+# KnowFlow Frontend
 
-RAGent 前端应用 - 基于 React 的智能对话界面
+KnowFlow 前端应用 - 基于 React 的智能对话界面
 
 ## 技术栈
 
@@ -81,7 +81,7 @@ frontend/
 创建 `.env.local` 文件配置后端API地址：
 
 ```bash
-VITE_API_BASE_URL=http://localhost:9090/api/ragent
+VITE_API_BASE_URL=http://localhost:9090/api/knowflow
 ```
 
 ## 开发指南

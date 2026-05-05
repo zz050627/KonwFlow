@@ -1,7 +1,7 @@
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $projectRoot = Split-Path -Parent $scriptDir
 $frontendDir = Join-Path $projectRoot "frontend"
-$frontendPort = if ($env:RAGENT_FRONTEND_PORT) { [int]$env:RAGENT_FRONTEND_PORT } else { 5173 }
+$frontendPort = if ($env:KNOWFLOW_FRONTEND_PORT) { [int]$env:KNOWFLOW_FRONTEND_PORT } else { 5173 }
 
 function Test-PortAvailable([int]$port) {
     try {
@@ -15,7 +15,7 @@ function Test-PortAvailable([int]$port) {
 }
 
 if (!(Test-PortAvailable $frontendPort)) {
-    Write-Host "Port $frontendPort is occupied. Run scripts\\stop-ragent.cmd first." -ForegroundColor Yellow
+    Write-Host "Port $frontendPort is occupied. Run scripts\\stop-knowflow.cmd first." -ForegroundColor Yellow
 }
 
 Set-Location -Path $frontendDir

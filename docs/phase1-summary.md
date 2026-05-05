@@ -1,4 +1,4 @@
-# Ragent 优化实施总结 - 阶段1完成
+# KnowFlow 优化实施总结 - 阶段1完成
 
 ## 已完成功能
 
@@ -37,7 +37,7 @@ ai:
 
 **执行方式：**
 ```bash
-psql -U postgres -d ragent -f resources/database/upgrade_v1.1_to_v1.2.sql
+psql -U postgres -d knowflow -f resources/database/upgrade_v1.1_to_v1.2.sql
 ```
 
 #### 3. 文件管理基础功能
@@ -166,14 +166,14 @@ psql -U postgres -d ragent -f resources/database/upgrade_v1.1_to_v1.2.sql
 mvn clean package
 
 # 2. 执行数据库升级
-psql -U postgres -d ragent -f resources/database/upgrade_v1.1_to_v1.2.sql
+psql -U postgres -d knowflow -f resources/database/upgrade_v1.1_to_v1.2.sql
 
 # 3. 启动 Ollama 服务
 ollama serve
 ollama pull qwen2.5:0.5b
 
 # 4. 启动后端
-java -jar bootstrap/target/ragent-0.0.1-SNAPSHOT.jar
+java -jar bootstrap/target/knowflow-0.0.1-SNAPSHOT.jar
 
 # 5. 测试关键词提取（需要实现测试接口或单元测试）
 ```

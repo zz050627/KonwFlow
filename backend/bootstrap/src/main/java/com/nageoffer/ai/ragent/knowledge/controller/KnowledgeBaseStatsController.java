@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/ragent/knowledge/stats")
+@RequestMapping("/api/knowflow/knowledge/stats")
 @RequiredArgsConstructor
 public class KnowledgeBaseStatsController {
 

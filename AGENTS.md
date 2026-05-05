@@ -17,7 +17,7 @@ cd backend && mvn clean package -DskipTests
 cd backend && mvn clean package -pl bootstrap
 
 # Run the application (after build)
-java -jar backend/bootstrap/target/ragent-0.0.1-SNAPSHOT.jar
+java -jar backend/bootstrap/target/knowflow-0.0.1-SNAPSHOT.jar
 
 # Run all tests
 cd backend && mvn clean test
@@ -40,7 +40,7 @@ cd frontend && npm run lint    # ESLint check
 
 The Vite dev server proxies `/api` to `http://localhost:9090`.
 
-The backend application starts on `http://localhost:9090/api/ragent`.
+The backend application starts on `http://localhost:9090/api/knowflow`.
 
 ## Infrastructure Dependencies
 
@@ -54,7 +54,7 @@ The app requires these services running locally (see `config/docker-compose.yml`
 
 Milvus has its own compose files under `backend/resources/docker/`. It is not included in the main docker-compose.
 
-AI provider API keys go in `ragent-secrets.yaml` at the project root (imported optionally, not committed). See `config/ragent-secrets.example.yaml` for the template.
+AI provider API keys go in `knowflow-secrets.yaml` at the project root (imported optionally, not committed). See `config/knowflow-secrets.example.yaml` for the template.
 
 ## Project Module Structure
 
@@ -125,7 +125,7 @@ rag.memory.summary-start-turns: 5
 ai.chat.default-model: deepseek-v3-online
 ```
 
-Secrets (API keys, provider config) go in `ragent-secrets.yaml` at the project root, which is imported optionally and not committed.
+Secrets (API keys, provider config) go in `knowflow-secrets.yaml` at the project root, which is imported optionally and not committed.
 
 ## AOP Annotations (framework module)
 

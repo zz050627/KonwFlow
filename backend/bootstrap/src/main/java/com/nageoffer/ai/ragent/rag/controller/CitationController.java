@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/ragent/rag/citation")
+@RequestMapping("/api/knowflow/rag/citation")
 @RequiredArgsConstructor
 public class CitationController {
 

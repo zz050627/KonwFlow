@@ -1,4 +1,4 @@
-# RAGent Backend
+# KnowFlow Backend
 
 RAG综合智能体后端服务 - 基于Spring Boot 3.5.7的智能文档处理与检索系统
 
@@ -43,17 +43,17 @@ mvn clean package -pl bootstrap
 
 ```bash
 # 方式1：直接运行JAR
-java -jar bootstrap/target/ragent-0.0.1-SNAPSHOT.jar
+java -jar bootstrap/target/knowflow-0.0.1-SNAPSHOT.jar
 
 # 方式2：使用启动脚本（项目根目录）
-../scripts/start-ragent.cmd    # Windows
-../scripts/start-ragent.ps1    # PowerShell
+../scripts/start-knowflow.cmd    # Windows
+../scripts/start-knowflow.ps1    # PowerShell
 ```
 
 ### 3. 访问应用
 
-- **API地址**: http://localhost:9090/api/ragent
-- **健康检查**: http://localhost:9090/api/ragent/actuator/health
+- **API地址**: http://localhost:9090/api/knowflow
+- **健康检查**: http://localhost:9090/api/knowflow/actuator/health
 
 ## 开发指南
 

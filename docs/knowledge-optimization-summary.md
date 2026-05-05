@@ -35,7 +35,7 @@
   - 文档/分块总数统计
   - 热点chunk追踪（Redis ZSet）
   - 检索命中记录
-- **API**: `GET /api/ragent/knowledge/stats/{kbId}`
+- **API**: `GET /api/knowflow/knowledge/stats/{kbId}`
 
 #### 2.2 数据模型
 - **文件**: `KnowledgeBaseStats.java`
@@ -49,31 +49,31 @@
 #### 3.1 导出服务
 - **文件**: `KnowledgeBaseExportService.java` + 实现类
 - **格式**: JSON（包含文档、分块、关键词）
-- **API**: `GET /api/ragent/knowledge/export/{kbId}`
+- **API**: `GET /api/knowflow/knowledge/export/{kbId}`
 
 #### 3.2 导入服务
 - **功能**: 
   - 解析JSON并重建知识库
   - 自动插入向量索引
   - 事务保护
-- **API**: `POST /api/ragent/knowledge/export/import/{targetKbId}`
+- **API**: `POST /api/knowflow/knowledge/export/import/{targetKbId}`
 
 ## 使用示例
 
 ### 查看知识库统计
 ```bash
-curl http://localhost:9090/api/ragent/knowledge/stats/123456
+curl http://localhost:9090/api/knowflow/knowledge/stats/123456
 ```
 
 ### 导出知识库
 ```bash
-curl -O http://localhost:9090/api/ragent/knowledge/export/123456
+curl -O http://localhost:9090/api/knowflow/knowledge/export/123456
 ```
 
 ### 导入知识库
 ```bash
 curl -X POST -F "file=@kb_123456.json" \
-  http://localhost:9090/api/ragent/knowledge/export/import/789012
+  http://localhost:9090/api/knowflow/knowledge/export/import/789012
 ```
 
 ## 性能提升
@@ -103,33 +103,33 @@ curl -X POST -F "file=@kb_123456.json" \
 - **数据库**: `t_knowledge_version` 表
 - **API**:
   ```
-  POST /api/ragent/knowledge/version/{kbId}/snapshot
-  POST /api/ragent/knowledge/version/{kbId}/rollback/{versionId}
-  GET  /api/ragent/knowledge/version/{kbId}/list
+  POST /api/knowflow/knowledge/version/{kbId}/snapshot
+  POST /api/knowflow/knowledge/version/{kbId}/rollback/{versionId}
+  GET  /api/knowflow/knowledge/version/{kbId}/list
   ```
 
 ### 使用示例
 
 #### 创建版本快照
 ```bash
-curl -X POST "http://localhost:9090/api/ragent/knowledge/version/123456/snapshot?versionTag=v1.0&description=初始版本"
+curl -X POST "http://localhost:9090/api/knowflow/knowledge/version/123456/snapshot?versionTag=v1.0&description=初始版本"
 ```
 
 #### 回滚到指定版本
 ```bash
-curl -X POST http://localhost:9090/api/ragent/knowledge/version/123456/rollback/789012
+curl -X POST http://localhost:9090/api/knowflow/knowledge/version/123456/rollback/789012
 ```
 
 #### 查看版本历史
 ```bash
-curl http://localhost:9090/api/ragent/knowledge/version/123456/list
+curl http://localhost:9090/api/knowflow/knowledge/version/123456/list
 ```
 
 ## 数据库升级
 
 执行迁移脚本：
 ```bash
-psql -h 127.0.0.1 -U postgres -d ragent -f bootstrap/src/main/resources/database/upgrade_v1.2_to_v1.3.sql
+psql -h 127.0.0.1 -U postgres -d knowflow -f bootstrap/src/main/resources/database/upgrade_v1.2_to_v1.3.sql
 ```
 
 ### 6. 多嵌入模型迁移
@@ -140,22 +140,22 @@ psql -h 127.0.0.1 -U postgres -d ragent -f bootstrap/src/main/resources/database
   - 支持取消操作
 - **API**:
   ```
-  POST /api/ragent/knowledge/migration/{kbId}/start?newModelId=xxx
-  GET  /api/ragent/knowledge/migration/{kbId}/status
-  POST /api/ragent/knowledge/migration/{kbId}/cancel
+  POST /api/knowflow/knowledge/migration/{kbId}/start?newModelId=xxx
+  GET  /api/knowflow/knowledge/migration/{kbId}/status
+  POST /api/knowflow/knowledge/migration/{kbId}/cancel
   ```
 
 #### 模型迁移示例
 ```bash
 # 启动迁移
-curl -X POST "http://localhost:9090/api/ragent/knowledge/migration/123456/start?newModelId=qwen3-embedding:8b"
+curl -X POST "http://localhost:9090/api/knowflow/knowledge/migration/123456/start?newModelId=qwen3-embedding:8b"
 
 # 查看进度
-curl http://localhost:9090/api/ragent/knowledge/migration/123456/status
+curl http://localhost:9090/api/knowflow/knowledge/migration/123456/status
 # 返回: "RUNNING:500/1000" 或 "COMPLETED"
 
 # 取消迁移
-curl -X POST http://localhost:9090/api/ragent/knowledge/migration/123456/cancel
+curl -X POST http://localhost:9090/api/knowflow/knowledge/migration/123456/cancel
 ```
 
 ## 完整功能清单

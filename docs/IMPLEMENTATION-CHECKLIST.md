@@ -29,14 +29,14 @@
 
 ### 1. 数据库升级
 ```bash
-psql -h 127.0.0.1 -U postgres -d ragent -f backend/resources/database/upgrade_v1.0_to_v1.1.sql
-psql -h 127.0.0.1 -U postgres -d ragent -f backend/resources/database/upgrade_v1.1_to_v1.2.sql
+psql -h 127.0.0.1 -U postgres -d knowflow -f backend/resources/database/upgrade_v1.0_to_v1.1.sql
+psql -h 127.0.0.1 -U postgres -d knowflow -f backend/resources/database/upgrade_v1.1_to_v1.2.sql
 ```
 
 ### 2. 编译部署
 ```bash
 mvn clean package -DskipTests
-java -jar bootstrap/target/ragent-0.0.1-SNAPSHOT.jar
+java -jar bootstrap/target/knowflow-0.0.1-SNAPSHOT.jar
 ```
 
 ## 📝 文档索引

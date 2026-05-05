@@ -30,8 +30,8 @@ git clone https://github.com/yourname/knowflow.git
 cd knowflow
 
 # 2. 配置 AI API Key（可选，默认使用 Ollama）
-cp config/ragent-secrets.example.yaml config/ragent-secrets.yaml
-# 编辑 config/ragent-secrets.yaml 填入 API Key
+cp config/knowflow-secrets.example.yaml config/knowflow-secrets.yaml
+# 编辑 config/knowflow-secrets.yaml 填入 API Key
 
 # 3. 一键启动
 docker compose up -d

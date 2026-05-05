@@ -28,7 +28,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api/ragent/knowledge/export")
+@RequestMapping("/api/knowflow/knowledge/export")
 @RequiredArgsConstructor
 public class KnowledgeBaseExportController {
 

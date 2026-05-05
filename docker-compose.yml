@@ -42,9 +42,9 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - ./config/ragent-secrets.yaml:/app/ragent-secrets.yaml:ro
+      - ./config/knowflow-secrets.yaml:/app/knowflow-secrets.yaml:ro
     healthcheck:
-      test: ["CMD-SHELL", "wget --spider -q http://localhost:9090/api/ragent/auth/login || exit 1"]
+      test: ["CMD-SHELL", "wget --spider -q http://localhost:9090/api/knowflow/auth/login || exit 1"]
       interval: 15s
       timeout: 5s
       retries: 10

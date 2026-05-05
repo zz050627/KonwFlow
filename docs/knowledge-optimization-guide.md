@@ -4,7 +4,7 @@
 
 ### 1. 数据库升级
 ```bash
-psql -h 127.0.0.1 -U postgres -d ragent -f bootstrap/src/main/resources/database/upgrade_v1.2_to_v1.3.sql
+psql -h 127.0.0.1 -U postgres -d knowflow -f bootstrap/src/main/resources/database/upgrade_v1.2_to_v1.3.sql
 ```
 
 ### 2. 配置检查
@@ -26,7 +26,7 @@ rag:
 ### 3. 重启应用
 ```bash
 mvn clean package -DskipTests
-java -jar bootstrap/target/ragent-0.0.1-SNAPSHOT.jar
+java -jar bootstrap/target/knowflow-0.0.1-SNAPSHOT.jar
 ```
 
 ## 核心功能使用
@@ -45,7 +45,7 @@ java -jar bootstrap/target/ragent-0.0.1-SNAPSHOT.jar
 ### 知识库统计
 ```bash
 # 查看统计信息
-curl http://localhost:9090/api/ragent/knowledge/stats/123456
+curl http://localhost:9090/api/knowflow/knowledge/stats/123456
 
 # 返回示例
 {
@@ -61,36 +61,36 @@ curl http://localhost:9090/api/ragent/knowledge/stats/123456
 ### 知识库导出/导入
 ```bash
 # 导出
-curl -O http://localhost:9090/api/ragent/knowledge/export/123456
+curl -O http://localhost:9090/api/knowflow/knowledge/export/123456
 
 # 导入到新知识库
 curl -X POST -F "file=@kb_123456.json" \
-  http://localhost:9090/api/ragent/knowledge/export/import/789012
+  http://localhost:9090/api/knowflow/knowledge/export/import/789012
 ```
 
 ### 版本管理
 ```bash
 # 创建快照
-curl -X POST "http://localhost:9090/api/ragent/knowledge/version/123456/snapshot?versionTag=v1.0&description=初始版本"
+curl -X POST "http://localhost:9090/api/knowflow/knowledge/version/123456/snapshot?versionTag=v1.0&description=初始版本"
 
 # 查看历史
-curl http://localhost:9090/api/ragent/knowledge/version/123456/list
+curl http://localhost:9090/api/knowflow/knowledge/version/123456/list
 
 # 回滚
-curl -X POST http://localhost:9090/api/ragent/knowledge/version/123456/rollback/version_id
+curl -X POST http://localhost:9090/api/knowflow/knowledge/version/123456/rollback/version_id
 ```
 
 ### 模型迁移
 ```bash
 # 启动迁移（异步）
-curl -X POST "http://localhost:9090/api/ragent/knowledge/migration/123456/start?newModelId=qwen3-embedding:8b"
+curl -X POST "http://localhost:9090/api/knowflow/knowledge/migration/123456/start?newModelId=qwen3-embedding:8b"
 
 # 查看进度
-curl http://localhost:9090/api/ragent/knowledge/migration/123456/status
+curl http://localhost:9090/api/knowflow/knowledge/migration/123456/status
 # 返回: RUNNING:500/1000 或 COMPLETED
 
 # 取消迁移
-curl -X POST http://localhost:9090/api/ragent/knowledge/migration/123456/cancel
+curl -X POST http://localhost:9090/api/knowflow/knowledge/migration/123456/cancel
 ```
 
 ## 性能监控
@@ -106,13 +106,13 @@ redis-cli
 ### 日志监控
 ```bash
 # 查看缓存命中
-grep "命中检索缓存" logs/ragent.log
+grep "命中检索缓存" logs/knowflow.log
 
 # 查看自适应过滤
-grep "自适应过滤" logs/ragent.log
+grep "自适应过滤" logs/knowflow.log
 
 # 查看模型迁移进度
-grep "模型迁移" logs/ragent.log
+grep "模型迁移" logs/knowflow.log
 ```
 
 ## 故障排查
@@ -120,12 +120,12 @@ grep "模型迁移" logs/ragent.log
 ### 缓存未生效
 1. 检查Redis连接：`redis-cli ping`
 2. 检查缓存键：`redis-cli KEYS rag:retrieval:*`
-3. 查看日志：`grep RetrievalCacheService logs/ragent.log`
+3. 查看日志：`grep RetrievalCacheService logs/knowflow.log`
 
 ### 模型迁移失败
 1. 查看状态：`GET /migration/{kbId}/status`
 2. 检查embedding服务可用性
-3. 查看错误日志：`grep "模型迁移失败" logs/ragent.log`
+3. 查看错误日志：`grep "模型迁移失败" logs/knowflow.log`
 
 ### 版本回滚失败
 1. 确认版本ID正确
@@ -137,7 +137,7 @@ grep "模型迁移" logs/ragent.log
 ### 1. 定期创建快照
 ```bash
 # 每周创建快照
-0 0 * * 0 curl -X POST "http://localhost:9090/api/ragent/knowledge/version/{kbId}/snapshot?versionTag=weekly_$(date +\%Y\%m\%d)"
+0 0 * * 0 curl -X POST "http://localhost:9090/api/knowflow/knowledge/version/{kbId}/snapshot?versionTag=weekly_$(date +\%Y\%m\%d)"
 ```
 
 ### 2. 监控热点chunk

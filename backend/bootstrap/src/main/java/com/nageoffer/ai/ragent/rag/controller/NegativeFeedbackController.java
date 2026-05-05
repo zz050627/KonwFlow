@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/ragent/rag/feedback")
+@RequestMapping("/api/knowflow/rag/feedback")
 @RequiredArgsConstructor
 public class NegativeFeedbackController {
 
